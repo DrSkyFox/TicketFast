@@ -41,8 +41,5 @@ public class UserInfo {
     @JoinColumn(name = "account", referencedColumnName = "id")
     private Account account;
 
-    @OneToOne(mappedBy = "userinfo_id", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Organization userinfo;
 
 }

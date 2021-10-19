@@ -1,6 +1,7 @@
 package com.ticket.entities.organization;
 
 
+import com.ticket.entities.account.Account;
 import com.ticket.entities.account.UserInfo;
 import com.ticket.entities.special.AddressBook;
 import com.ticket.entities.templates.PlaceTemplate;
@@ -24,8 +25,8 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fullname", nullable = false)
-    private String fullName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "inn")
     private Integer iNN;
@@ -59,8 +60,8 @@ public class Organization {
     private List<TicketTemplate> ticketTemplates;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "userinfo_id")
-    private UserInfo userinfo_id;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
     private List<RoleStaff> roleStaffs;

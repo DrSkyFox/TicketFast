@@ -42,7 +42,7 @@
         <module>ticket-email-user-service</module>
         <module>ticket-user-registration</module>
         <module>ticket-core</module>
-        <module>ticket-organization</module>
+<!--        <module>ticket-organization</module>-->
     </modules>
 
 </project>

@@ -1,11 +1,13 @@
 package com.ticket.entities.organization;
 
 
+import com.ticket.entities.account.Account;
 import com.ticket.entities.account.UserInfo;
 import com.ticket.entities.organization.reference.RoleStaffsRef;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -23,11 +25,11 @@ public class Staff {
     private Long id;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "userinfo_id")
-    private UserInfo userInfo;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @OneToMany(mappedBy = "roleStaff", cascade = CascadeType.ALL)
-    private Set<RoleStaffsRef> roleStaffsRefSet;
+    private List<RoleStaffsRef> roleStaffsRefSet;
 
     @Builder.Default
     @Column(name = "isActive", nullable = false)

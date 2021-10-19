@@ -5,6 +5,7 @@ import com.ticket.entities.organization.reference.RoleStaffsRef;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,7 +33,7 @@ public class RoleStaff {
     private Privileges privileges;
 
     @OneToMany(mappedBy = "roleStaff", cascade = CascadeType.ALL)
-    private Set<RoleStaffsRef> roleStaffsRefSet;
+    private List<RoleStaffsRef> roleStaffsRefSet;
 
     @Column(name = "isActive", nullable = false)
     private Boolean isActive = true;

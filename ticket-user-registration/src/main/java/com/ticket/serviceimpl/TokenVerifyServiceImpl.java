@@ -2,7 +2,7 @@ package com.ticket.serviceimpl;
 
 import com.ticket.entities.account.Account;
 import com.ticket.entities.account.security.VerificationToken;
-import com.ticket.repositories.VerificationTokenRepository;
+import com.ticket.repositories.account.VerificationTokenRepository;
 import com.ticket.service.ITokenVerifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,6 @@ public class TokenVerifyServiceImpl implements ITokenVerifyService {
     @Override
     public VerificationToken getVerificationToken(final String token) {
         log.info("Get VerificationToken by token {}", token);
-        return verificationTokenRepository.findByToken(token);
+        return verificationTokenRepository.findByToken(token).get();
     }
 }

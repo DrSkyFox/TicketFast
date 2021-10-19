@@ -3,7 +3,7 @@ package com.ticket.serviceimpl;
 
 import com.ticket.entities.account.Account;
 import com.ticket.exceptions.EmailExistsException;
-import com.ticket.repositories.AccountRepository;
+import com.ticket.repositories.account.AccountRepository;
 import com.ticket.service.IAccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

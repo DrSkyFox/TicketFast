@@ -2,7 +2,7 @@ package com.ticket.serviceimpl;
 
 import com.ticket.entities.account.Account;
 import com.ticket.entities.account.security.PasswordResetToken;
-import com.ticket.repositories.PasswordResetTokenRepository;
+import com.ticket.repositories.account.PasswordResetTokenRepository;
 import com.ticket.service.ITokenResetService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,6 @@ public class TokenResetServiceImpl implements ITokenResetService {
     public PasswordResetToken getPasswordResetToken(String token)
     {
         log.info("Get PasswordResetToken by token {}", token);
-        return passwordTokenRepository.findByToken(token);
+        return passwordTokenRepository.findByToken(token).get();
     }
 }
