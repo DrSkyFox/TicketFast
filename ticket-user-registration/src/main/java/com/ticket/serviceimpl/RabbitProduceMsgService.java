@@ -1,7 +1,8 @@
 package com.ticket.serviceimpl;
 
+import com.ticket.config.ConfigurationProducerReg;
 import com.ticket.email.model.MessageMail;
-import com.ticket.config.ServiceConfiguration;
+
 import com.ticket.service.IRabbitProduceMsgService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Service;
 public class RabbitProduceMsgService implements IRabbitProduceMsgService {
 
     private final RabbitTemplate rabbitTemplate;
-    private final ServiceConfiguration configuration;
+    private final ConfigurationProducerReg configuration;
+
 
     @Autowired
-    public RabbitProduceMsgService(RabbitTemplate rabbitTemplate, ServiceConfiguration configuration) {
+    public RabbitProduceMsgService(RabbitTemplate rabbitTemplate, ConfigurationProducerReg configuration) {
         this.rabbitTemplate = rabbitTemplate;
         this.configuration = configuration;
     }

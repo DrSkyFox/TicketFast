@@ -3,7 +3,7 @@ package com.ticket.servimp;
 
 import com.ticket.email.model.MessageMail;
 import com.ticket.response.Response;
-import com.ticket.config.ServiceConfiguration;
+import com.ticket.config.ConfigurationProducerMail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -16,10 +16,10 @@ public class MailServiceQueryImp implements com.ticket.service.MailServiceQuery 
 
     private final AmqpTemplate rabbit;
 
-    private ServiceConfiguration configuration;
+    private ConfigurationProducerMail configuration;
 
     @Autowired
-    public MailServiceQueryImp(AmqpTemplate rabbit, ServiceConfiguration configuration) {
+    public MailServiceQueryImp(AmqpTemplate rabbit, ConfigurationProducerMail configuration) {
         this.rabbit = rabbit;
         this.configuration = configuration;
     }

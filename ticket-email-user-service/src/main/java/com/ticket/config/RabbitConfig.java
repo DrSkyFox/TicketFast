@@ -17,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    private ServiceConfiguration configuration;
+    private final ConfigurationProducerMail configuration;
 
     @Autowired
-    public RabbitConfig(ServiceConfiguration configuration) {
+    public RabbitConfig(ConfigurationProducerMail configuration) {
         this.configuration = configuration;
     }
 
