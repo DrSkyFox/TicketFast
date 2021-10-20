@@ -24,10 +24,10 @@ public class Account {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "login", nullable = false, length = 64)
+    @Column(name = "login", nullable = false, length = 64, unique = true)
     private String login;
 
-    @Column(name = "email", nullable = false, length = 64)
+    @Column(name = "email", nullable = false, length = 64, unique = true)
     private String email;
 
     @Column(name = "phone_number", length = 15)
