@@ -40,11 +40,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
             .toString();
 
         service.createVerificationTokenForUser(account, token);
-
+        log.info("Send Registration Task in query");
         msgService.send(
                 MessageMail.builder()
                         .recipientAddress(account.getEmail())
-                        .subject("Reset Password")
+                        .subject("Registration Account Confirm")
                         .text(message(event.getAppUrl(), token, account))
                         .build()
         );
@@ -54,12 +54,10 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private String message(String uRL, String token, Account account) {
         StringBuilder builder = new StringBuilder();
         builder.append(uRL)
-                .append("/account/changePassword?id=")
-                .append(account.getId())
-                .append("&token=")
+                .append("/account/registrationConfirm?")
+                .append("token=")
                 .append(token);
         return builder.toString();
     }
-
 
 }

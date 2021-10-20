@@ -14,7 +14,7 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('login')} ? 'has-error'">
             <label class="control-label col-xs-2" for="email">Login</label>
             <div class="col-xs-10">
-                <input id="login" type="text" title="login" th:field="*{login}"/>
+                <input id="login" type="text" title="login" required="required" th:field="*{login}"/>
                 <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="help-block">Login Error</span>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
             <label class="control-label col-xs-2" for="email">Email</label>
             <div class="col-xs-10">
-                <input id="email" type="email" title="email" th:field="*{email}"/>
+                <input id="email" type="email" title="email" required="required" th:field="*{email}"/>
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block">Email Error</span>
             </div>
         </div>
@@ -36,11 +36,11 @@
             </div>
         </div>
 
+
         <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
             <label class="control-label col-xs-2" for="password">Password</label>
             <div class="col-xs-10">
-                <input id="password" type="password" title="password" th:field="*{password}"
-                       pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$"/>
+                <input id="password" type="password" title="password" required="required" th:field="*{password}"/><span class="message" ></span>
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                       class="help-block">Password Error</span>
             </div>
@@ -49,14 +49,14 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'has-error'">
             <label class="control-label col-xs-2" for="confirm_password">Password Confirmation</label>
             <div class="col-xs-10">
-                <input id="confirm_password" type="password" title="confirmPassword" th:field="*{confirmPassword}"/>
+                <input id="confirm_password" type="password" title="confirmPassword" required="required" th:field="*{confirmPassword}"/><span class="message" ></span>
                 <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="help-block">Password Confirmation Error</span>
             </div>
         </div>
-        <span id='message'></span>
+        <br/>
 
         <div class="form-actions col-xs-offset-2 col-xs-10">
-            <input id="button_activate" type="submit" class="btn btn-primary" value="Register"/>
+            <input id="button_activate" type="submit" class="btn btn-primary" value="Submit" disabled />
         </div>
 
     </form>

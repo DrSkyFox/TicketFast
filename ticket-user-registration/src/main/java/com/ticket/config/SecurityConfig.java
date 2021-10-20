@@ -19,15 +19,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void authConfigure(AuthenticationManagerBuilder auth,
                               LssUserDetailsService userDetailService,
                               PasswordEncoder passwordEncoder) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("1")
-                .password(passwordEncoder.encode("1"))
-                .roles("SUPER_ADMIN");
+
+
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailService);
         provider.setPasswordEncoder(passwordEncoder);
         auth.authenticationProvider(provider);
+
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder.encode("root"))
+                .roles("ADMIN");
+
     }
 
      // @formatter:on
@@ -42,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/reg",
                         "/sendmail",
                         "/forgotPassword*",
-                        "/user/resetPassword*",
-                        "/user/changePassword*",
-                        "/user/savePassword*",
+                        "/account/resetPassword*",
+                        "/account/changePassword*",
+                        "/account/savePassword*",
                         "/badUser",
-                        "/registrationConfirm*",
+                        "/account/registrationConfirm*",
                         "/webjars/**",
                         "/css/**",
                         "/js/**",
@@ -59,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .loginProcessingUrl("/doLogin")
+                .successForwardUrl("/home")
                 .and().logout().permitAll().logoutUrl("/doLogout")
                 .and()
                 .csrf().disable();

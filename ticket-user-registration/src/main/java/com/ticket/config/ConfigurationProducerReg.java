@@ -15,17 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigurationProducerReg {
 
-    @Value("${service.rabbit.queue}:service.queue")
+    @Value("${service.rabbit.queue}")
     private String nameQueue;
 
-    @Value("${service.rabbit.exchange}:service.exchange")
+    @Value("${service.rabbit.exchange}")
     private String nameExchange;
 
-    @Value("${service.rabbit.routingKey}:key")
+    @Value("${service.rabbit.routingKey}")
     private String nameRoutingKey;
-
-
-
-
-
 }

@@ -46,13 +46,12 @@ public class AccountFacadeServiceImpl implements IAccountFacadeService {
 
         account.setEnabled(false);
         log.info("New Account is {}", account);
-        final Account register = accountService.registerNewUser(Converter.converterAccountRepr(account));
-        log.info("Saved to DB:  {}", register.toString());
-
-        log.info("Registration event");
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(register, getUrlReg(request)));
-
-        return Optional.of(Converter.converterAccount(register));
+        Optional<Account> register = accountService.registerNewUser(Converter.converterAccountRepr(account));
+        if(register.isPresent()) {
+            log.info("Saved to DB: {}", register.get());
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(register.get(), getUrlReg(request)));
+        }
+        return Optional.of(Converter.converterAccount(register.orElse(null)));
     }
 
     @Override
@@ -100,21 +99,21 @@ public class AccountFacadeServiceImpl implements IAccountFacadeService {
     public Optional<AccountRepr> resetPassword(String loginOrEmail, HttpServletRequest request) {
 
         log.info("Account request reset password by email {}", loginOrEmail);
-        final Account account = accountService.findUserByEmail(loginOrEmail);
+        final Optional<Account> account = accountService.findUserByEmail(loginOrEmail);
         log.info("User is {}", account.toString());
-        if (account != null) {
+        if (account.isPresent()) {
             final String token = UUID.randomUUID()
                     .toString();
             log.info("Token for reset {}", token);
-            resetService.createPasswordResetTokenForUser(account, token);
+            resetService.createPasswordResetTokenForUser(account.get(), token);
             log.info("Token saved to DB");
 
             log.info("ForgotPassword event");
-            eventPublisher.publishEvent(new OnForgotPasswordEvent(account, getUrlReg(request)));
+            eventPublisher.publishEvent(new OnForgotPasswordEvent(account.get(), getUrlReg(request)));
             log.info("event is published");
         }
 
-        return Optional.of(Converter.converterAccount(account));
+        return Optional.of(Converter.converterAccount(account.orElse(null)));
     }
 
     @Override
@@ -152,7 +151,7 @@ public class AccountFacadeServiceImpl implements IAccountFacadeService {
 
 
     @Override
-    public Optional<AccountRepr> updateExistingUser(Account account) throws EmailExistsException {
+    public Optional<AccountRepr> updateExistingUser(Account account){
 
         return Optional.empty();
     }

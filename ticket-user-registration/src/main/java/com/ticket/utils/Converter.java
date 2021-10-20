@@ -1,6 +1,7 @@
 package com.ticket.utils;
 
 import com.ticket.entities.account.Account;
+import com.ticket.enums.AccountStatus;
 import com.ticket.representative.AccountRepr;
 
 public class Converter {
@@ -11,6 +12,7 @@ public class Converter {
                 .login(accountRepr.getLogin())
                 .email(accountRepr.getEmail())
                 .phoneNumber(accountRepr.getPhoneNumber())
+                .status(AccountStatus.WAIT_CONFIRM)
                 .password(accountRepr.getPassword())
                 .status(accountRepr.getStatus())
                 .build();

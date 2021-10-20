@@ -43,20 +43,20 @@ public class ForgotPasswordListener implements ApplicationListener<OnForgotPassw
                 MessageMail.builder()
                         .recipientAddress(account.getEmail())
                         .subject("Reset Password")
-                        .text(messageReset(event.getAppUrl(), token, account))
+                        .text(message(event.getAppUrl(), token, account))
                         .build()
         );
     }
 
-    private String messageReset(String uRL, String token, Account account) {
+    private String message(String uRL, String token, Account account) {
         StringBuilder builder = new StringBuilder();
         builder.append(uRL)
-                .append("/account/registrationConfirm?")
-                .append("token=")
+                .append("/account/changePassword?id=")
+                .append(account.getId())
+                .append("&token=")
                 .append(token);
         return builder.toString();
     }
-
 
 
 

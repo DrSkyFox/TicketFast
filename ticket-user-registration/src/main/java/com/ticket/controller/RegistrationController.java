@@ -47,6 +47,7 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return new ModelAndView("registrationPage", "account", account);
         }
+        
         try {
             service.registerAccount(account, request);
         } catch (EmailExistsException e) {
@@ -57,7 +58,7 @@ public class RegistrationController {
     }
 
 
-    @RequestMapping(value = "/registrationConfirm")
+    @RequestMapping(value = "/account/registrationConfirm")
     public ModelAndView confirmRegistration(@RequestParam("token") final String token,
                                             final RedirectAttributes redirectAttributes) {
         log.info("Confirmation request with incoming token value: {}", token);
