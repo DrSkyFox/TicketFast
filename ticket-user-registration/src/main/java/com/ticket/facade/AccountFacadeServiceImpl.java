@@ -4,10 +4,11 @@ package com.ticket.facade;
 import com.ticket.entities.account.Account;
 import com.ticket.entities.account.security.PasswordResetToken;
 import com.ticket.entities.account.security.VerificationToken;
+import com.ticket.enums.AccountStatus;
 import com.ticket.events.OnForgotPasswordEvent;
 import com.ticket.events.OnRegistrationCompleteEvent;
 import com.ticket.exceptions.*;
-import com.ticket.representative.AccountRepr;
+import com.ticket.repr.AccountRepr;
 import com.ticket.service.IAccountFacadeService;
 import com.ticket.service.IAccountService;
 import com.ticket.service.ITokenResetService;
@@ -42,7 +43,7 @@ public class AccountFacadeServiceImpl implements IAccountFacadeService {
     }
 
     @Override
-    public Optional<AccountRepr> registerAccount(AccountRepr account, HttpServletRequest request) throws EmailExistsException {
+    public Optional<AccountRepr> registerAccount(AccountRepr account, HttpServletRequest request) throws EmailExistsException, LoginExistsException {
 
         account.setEnabled(false);
         log.info("New Account is {}", account);
@@ -83,10 +84,11 @@ public class AccountFacadeServiceImpl implements IAccountFacadeService {
             }
         }
 
-        log.info("Got user: id - {}, login - {} with token {}", account.getId(), account.getLogin(), token);
+        log.info("Got Account: id - {}, login - {} with token {}", account.getId(), account.getLogin(), token);
 
         account.setEnabled(true);
-        log.info("User is active : {}", account.getEnabled());
+        account.setStatus(AccountStatus.CONFIRMED);
+        log.info("Account is active : {}; status: {}", account.getEnabled(), account.getStatus());
         accountService.saveRegisteredUser(account);
         log.info("Saving to DB");
 

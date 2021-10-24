@@ -8,7 +8,7 @@ import com.ticket.repr.OrganizationRepr;
 
 public interface IFacadeOrganizationService {
 
-    OrganizationRepr createNewOrganization(Account account, OrganizationRepr organization);
+    OrganizationRepr createNewOrganization(Account account, OrganizationRepr organization) throws Exception;
 
     void deleteOrganization(Account account);
 

@@ -2,11 +2,8 @@ package com.ticket.controller;
 
 
 import com.google.common.collect.ImmutableMap;
-import com.ticket.exceptions.EmailExistsException;
-import com.ticket.exceptions.TokenExistsException;
-import com.ticket.exceptions.TokenTimeException;
-import com.ticket.exceptions.TokenValidException;
-import com.ticket.representative.AccountRepr;
+import com.ticket.exceptions.*;
+import com.ticket.repr.AccountRepr;
 import com.ticket.service.IAccountFacadeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +50,11 @@ public class RegistrationController {
         } catch (EmailExistsException e) {
             result.addError(new FieldError("account", "email", e.getMessage()));
             return new ModelAndView("registrationPage", "account", account);
+        } catch (LoginExistsException e) {
+            result.addError(new FieldError("account", "login", e.getMessage()));
+            return new ModelAndView("registrationPage", "account", account);
         }
+
         return new ModelAndView("redirect:/login");
     }
 

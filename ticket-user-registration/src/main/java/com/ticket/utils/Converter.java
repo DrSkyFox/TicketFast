@@ -2,7 +2,8 @@ package com.ticket.utils;
 
 import com.ticket.entities.account.Account;
 import com.ticket.enums.AccountStatus;
-import com.ticket.representative.AccountRepr;
+import com.ticket.repr.AccountRepr;
+
 
 public class Converter {
 

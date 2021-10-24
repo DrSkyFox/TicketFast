@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -35,13 +37,24 @@ public class FacadeOrganizationServiceImpl implements IFacadeOrganizationService
     }
 
     @Override
-    @Transactional
-    public OrganizationRepr createNewOrganization(Account account, OrganizationRepr organizationRepr) {
-        if (organizationService.findOrganizationByName(organizationRepr.getName(), null) == null) {
+    @Transactional(rollbackFor = Exception.class)
+    public OrganizationRepr createNewOrganization(Account account, OrganizationRepr organizationRepr) throws Exception {
+
+        log.info("Create new Organization: {} by account {}", organizationRepr.getName(), account.toString());
+        OrganizationRepr organizationR = organizationService.findOrganizationByName(organizationRepr.getName(), null);
+        if (organizationR == null) {
+
+            log.info("Create Staff Owner");
             Staff staff = staffService.addNewStaff(Staff.builder()
                     .isActive(true)
                     .staffType(StaffType.OWNER)
                     .build());
+            log.info("Created staff {}", staff.toString());
+
+            if(true) {
+                throw new Exception("some exception");
+            }
+            log.info("Create organization");
             Organization organization = organizationService.createOrganization(
                     Organization.builder()
                             .name(organizationRepr.getName())
@@ -53,12 +66,16 @@ public class FacadeOrganizationServiceImpl implements IFacadeOrganizationService
                             .isActive(true)
                             .build()
             );
+            log.info("Created organization: {}", organization.toString());
+
+            log.info("Reg Account Staff Org");
             staffAccountRegRepository.save(OrganizationStaffAccountReg.builder()
                     .organization(organization)
                     .account(account)
                     .staff(staff)
                     .isActive(true)
                     .build());
+
         }
         return null;
     }

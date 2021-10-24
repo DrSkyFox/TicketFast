@@ -4,6 +4,7 @@ package com.ticket.serviceimpl;
 import com.ticket.entities.account.Account;
 import com.ticket.enums.AccountStatus;
 import com.ticket.exceptions.EmailExistsException;
+import com.ticket.exceptions.LoginExistsException;
 import com.ticket.repositories.account.AccountRepository;
 import com.ticket.service.IAccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,11 @@ public class AccountServiceImpl implements IAccountService {
         log.info("RegisterNewUser: {}", account);
         if (emailExist(account.getEmail())) {
             log.info("Email already exists");
-            throw new EmailExistsException("Account with {} already exists " + account.getEmail());
+            throw new EmailExistsException("Account with email: {} already exists " + account.getEmail());
+        }
+        if(loginExist(account.getLogin())) {
+            log.info("Login already exists");
+            throw new LoginExistsException("Account with login: {} already exists " + account.getLogin());
         }
 
         account.setPassword(passwordEncoder.encode(account.getPassword()));
@@ -54,6 +59,11 @@ public class AccountServiceImpl implements IAccountService {
 
     private boolean emailExist(String email) {
         final Optional<Account> account = repository.findByLoginEmail(email);
+        return account.isPresent();
+    }
+
+    private boolean loginExist(String login) {
+        final Optional<Account> account = repository.findByLogin(login);
         return account.isPresent();
     }
 

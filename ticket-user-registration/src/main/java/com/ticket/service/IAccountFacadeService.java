@@ -4,7 +4,7 @@ import com.ticket.entities.account.Account;
 import com.ticket.exceptions.EmailExistsException;
 import com.ticket.exceptions.TokenExistsException;
 import com.ticket.exceptions.TokenTimeException;
-import com.ticket.representative.AccountRepr;
+import com.ticket.repr.AccountRepr;
 
 
 import javax.servlet.http.HttpServletRequest;
