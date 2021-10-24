@@ -6,8 +6,9 @@ import com.ticket.enums.AccountStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 
 @Builder(toBuilder = true)
@@ -65,7 +66,7 @@ public class Account {
     private UserPurchasingInfo userPurchasingInfo;
 
     @OneToMany(mappedBy = "account")
-    private List<AccountRoleRef> accountRoleRef;
+    private Set<AccountRoleRef> accountRoleRef ;
 
     @Override
     public String toString() {

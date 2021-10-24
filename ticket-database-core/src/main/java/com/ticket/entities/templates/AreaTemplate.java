@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "area_templates")
-public class AreaTemplates {
+public class AreaTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

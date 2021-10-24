@@ -1,7 +1,6 @@
 package com.ticket.entities.templates.reference;
 
 
-import com.ticket.entities.templates.AreaTemplates;
 import com.ticket.entities.templates.PlaceTemplate;
 import com.ticket.entities.templates.TicketTemplate;
 import lombok.*;

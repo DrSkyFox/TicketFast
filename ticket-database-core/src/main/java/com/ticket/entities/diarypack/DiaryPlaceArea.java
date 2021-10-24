@@ -2,8 +2,7 @@ package com.ticket.entities.diarypack;
 
 
 import com.ticket.entities.diarypack.reference.DiaryAreaDiaryPlaceReg;
-import com.ticket.entities.templates.AreaTemplates;
-import com.ticket.entities.templates.PlaceTemplate;
+import com.ticket.entities.templates.AreaTemplate;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,7 +28,7 @@ public class DiaryPlaceArea {
 
     @OneToOne
     @JoinColumn(name = "area_template_id", referencedColumnName = "id")
-    private AreaTemplates templateArea;
+    private AreaTemplate templateArea;
 
     @Column(name = "max_count_place")
     private Long maxCountAreaPlaces;

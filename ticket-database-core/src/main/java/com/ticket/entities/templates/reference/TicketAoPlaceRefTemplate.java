@@ -1,7 +1,7 @@
 package com.ticket.entities.templates.reference;
 
 
-import com.ticket.entities.templates.AreaTemplates;
+import com.ticket.entities.templates.AreaTemplate;
 import com.ticket.entities.templates.TicketTemplate;
 import lombok.*;
 
@@ -27,7 +27,7 @@ public class TicketAoPlaceRefTemplate {
 
     @ManyToOne
     @JoinColumn(name = "place_temp_id")
-    private AreaTemplates areaTemplate;
+    private AreaTemplate areaTemplate;
 
     @Column(name = "register")
     private LocalDateTime register = LocalDateTime.now();

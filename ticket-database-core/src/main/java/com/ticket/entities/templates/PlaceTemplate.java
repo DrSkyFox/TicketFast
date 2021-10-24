@@ -4,14 +4,12 @@ package com.ticket.entities.templates;
 import com.ticket.entities.organization.Organization;
 import com.ticket.entities.special.RentInfo;
 import com.ticket.entities.templates.reference.DiaryPlaceRefTemplate;
-import com.ticket.entities.templates.reference.TicketAoPlaceRefTemplate;
 import com.ticket.entities.templates.reference.TicketPlaceRefTemplate;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 @Builder(toBuilder = true)
 @Getter
@@ -62,12 +60,18 @@ public class PlaceTemplate {
     @OneToOne(fetch = FetchType.LAZY)
     private RentInfo rentInfo;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
     @OneToMany(mappedBy = "place_template", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AreaTemplates> areas;
+    private List<AreaTemplate> areas;
 
     @Column(name = "isActive", nullable = false)
     private Boolean isActive = true;

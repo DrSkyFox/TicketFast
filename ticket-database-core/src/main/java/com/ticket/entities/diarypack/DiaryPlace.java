@@ -2,9 +2,6 @@ package com.ticket.entities.diarypack;
 
 
 import com.ticket.entities.diarypack.reference.DiaryAreaDiaryPlaceReg;
-import com.ticket.entities.special.RentInfo;
-import com.ticket.entities.templates.AreaTemplates;
-import com.ticket.entities.templates.DiaryTemplate;
 import com.ticket.entities.templates.PlaceTemplate;
 import lombok.*;
 

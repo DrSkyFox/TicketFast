@@ -3,7 +3,6 @@ package com.ticket.entities.diarypack.reference;
 
 import com.ticket.entities.diarypack.DiaryPlace;
 import com.ticket.entities.diarypack.DiaryPlaceArea;
-import com.ticket.entities.templates.AreaTemplates;
 import lombok.*;
 
 import javax.persistence.*;

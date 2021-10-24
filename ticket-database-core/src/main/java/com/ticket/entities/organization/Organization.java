@@ -2,15 +2,13 @@ package com.ticket.entities.organization;
 
 
 import com.ticket.entities.account.Account;
-import com.ticket.entities.account.UserInfo;
-import com.ticket.entities.special.AddressBook;
+import com.ticket.entities.special.reference.AddressRegRef;
 import com.ticket.entities.templates.PlaceTemplate;
 import com.ticket.entities.templates.TicketTemplate;
-import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Builder(toBuilder = true)
 @Getter
@@ -48,23 +46,23 @@ public class Organization {
 
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<AddressBook> addresses;
+    private Set<AddressRegRef> addressRegRefs;
 
     @Column(name = "isActive")
     private Boolean isActive;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<PlaceTemplate> places;
+    private Set<PlaceTemplate> places;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<TicketTemplate> ticketTemplates;
+    private Set<TicketTemplate> ticketTemplates;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "account_id")
     private Account account;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<RoleStaff> roleStaffs;
+    private Set<RoleStaff> roleStaffs;
 
 
 

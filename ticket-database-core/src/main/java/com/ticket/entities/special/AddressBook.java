@@ -1,10 +1,13 @@
 package com.ticket.entities.special;
 
 import com.ticket.entities.organization.Organization;
+import com.ticket.entities.special.reference.AddressRegRef;
 import com.ticket.enums.AddressType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Builder(toBuilder = true)
 @Getter
@@ -34,10 +37,11 @@ public class AddressBook {
     @Enumerated(EnumType.ORDINAL)
     private AddressType addressType;
 
-    @ManyToOne
-    @JoinColumn(name = "organization", referencedColumnName = "id")
-    private Organization organization;
+    @OneToMany(mappedBy = "addressBook", cascade = CascadeType.ALL)
+    private Set<AddressRegRef> addressRegRef;
 
-
+    @Builder.Default
+    @Column(name = "isActive")
+    private Boolean isActive = true;
 
 }
