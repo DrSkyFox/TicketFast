@@ -1,14 +1,11 @@
 package com.ticket.entities.organization;
 
 
-import com.ticket.entities.account.Account;
-import com.ticket.entities.account.UserInfo;
-import com.ticket.entities.organization.reference.RoleStaffsRef;
+import com.ticket.entities.organization.reference.OrganizationStaffAccountReg;
+import com.ticket.enums.StaffType;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 
 @Builder(toBuilder = true)
@@ -24,18 +21,16 @@ public class Staff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="staff_type")
+    private StaffType staffType;
 
-    @OneToMany(mappedBy = "roleStaff", cascade = CascadeType.ALL)
-    private List<RoleStaffsRef> roleStaffsRefSet;
 
     @Builder.Default
     @Column(name = "isActive", nullable = false)
     private Boolean isActive = true;
 
-
-    
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<OrganizationStaffAccountReg> organizationStaffAccountRegs;
 
 }

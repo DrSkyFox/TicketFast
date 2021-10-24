@@ -23,7 +23,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "inn")
@@ -45,9 +45,6 @@ public class Organization {
     private Integer oKPO;
 
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private Set<AddressRegRef> addressRegRefs;
-
     @Column(name = "isActive")
     private Boolean isActive;
 
@@ -57,14 +54,7 @@ public class Organization {
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
     private Set<TicketTemplate> ticketTemplates;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private Set<RoleStaff> roleStaffs;
-
-
-
+    private Set<AddressRegRef> addressRegRefs;
 
 }

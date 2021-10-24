@@ -1,14 +1,13 @@
-package com.ticket;
+package com.email;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TicketDatabaseCoreApplicationTests {
+class TicketEmailServiceApplicationTests {
 
     @Test
     void contextLoads() {
-
     }
 
 }
