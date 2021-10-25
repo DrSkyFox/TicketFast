@@ -5,6 +5,8 @@ import com.ticket.entities.organization.Organization;
 import com.ticket.entities.organization.Staff;
 import com.ticket.entities.organization.reference.OrganizationStaffAccountReg;
 import com.ticket.enums.StaffType;
+import com.ticket.exceptions.OrganizationException;
+import com.ticket.exceptions.StaffException;
 import com.ticket.repositories.organization.StaffAccountRegRepository;
 import com.ticket.repr.AccountRepr;
 import com.ticket.repr.OrganizationRepr;
@@ -25,9 +27,11 @@ import java.util.Optional;
 @Service
 public class FacadeOrganizationServiceImpl implements IFacadeOrganizationService {
 
+
     private final IOrganizationService organizationService;
     private final IStaffService staffService;
     private final StaffAccountRegRepository staffAccountRegRepository;
+
 
     @Autowired
     public FacadeOrganizationServiceImpl(IOrganizationService organizationService, IStaffService staffService, StaffAccountRegRepository staffAccountRegRepository) {
@@ -45,17 +49,20 @@ public class FacadeOrganizationServiceImpl implements IFacadeOrganizationService
         if (organizationR == null) {
 
             log.info("Create Staff Owner");
-            Staff staff = staffService.addNewStaff(Staff.builder()
+            Optional<Staff> staff = Optional.of(staffService.addNewStaff(Staff.builder()
                     .isActive(true)
                     .staffType(StaffType.OWNER)
-                    .build());
-            log.info("Created staff {}", staff.toString());
+                    .build()));
 
-            if(true) {
-                throw new Exception("some exception");
+            if(staff.isPresent()) {
+                log.info("Created staff {}", staff.get().toString());
+            } else {
+                throw new StaffException("Cant create Staff");
             }
+
+
             log.info("Create organization");
-            Organization organization = organizationService.createOrganization(
+            Optional<Organization> organization =Optional.of(organizationService.createOrganization(
                     Organization.builder()
                             .name(organizationRepr.getName())
                             .iNN(organizationRepr.getINN())
@@ -65,18 +72,34 @@ public class FacadeOrganizationServiceImpl implements IFacadeOrganizationService
                             .oKPO(organizationRepr.getOKPO())
                             .isActive(true)
                             .build()
-            );
-            log.info("Created organization: {}", organization.toString());
+            ));
+            if(organization.isPresent()) {
+                log.info("Created organization: {}", organization.toString());
+            } else {
+                log.error("Cant Create organization");
+                throw new OrganizationException("Cant Create organization");
+            }
 
-            log.info("Reg Account Staff Org");
+            log.info("Reg organization owner");
             staffAccountRegRepository.save(OrganizationStaffAccountReg.builder()
-                    .organization(organization)
+                    .organization(organization.get())
                     .account(account)
-                    .staff(staff)
+                    .staff(staff.get())
                     .isActive(true)
                     .build());
 
+            return new OrganizationRepr(organization.get());
         }
+        return null;
+    }
+
+    @Override
+    public OrganizationRepr getOrganization(Account account) {
+        return null;
+    }
+
+    @Override
+    public OrganizationRepr getOrganization(Staff staff) {
         return null;
     }
 
