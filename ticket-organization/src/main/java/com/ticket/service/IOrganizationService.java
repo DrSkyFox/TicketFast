@@ -9,11 +9,10 @@ import java.util.Set;
 
 public interface IOrganizationService {
 
-    OrganizationRepr createOrganizationRepr(OrganizationRepr organization);
+    OrganizationRepr createOrganizationRepr(Account account,OrganizationRepr organizationRepr);
 
     OrganizationRepr updateOrganizationRepr(OrganizationRepr organization);
 
-    Organization createOrganization(Organization organization);
 
     Organization updateOrganization(Organization organization);
 
